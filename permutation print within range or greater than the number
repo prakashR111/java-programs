@@ -1,0 +1,60 @@
+import java.util.*;
+public class Hello {
+
+  static void permutation(String prefix,String str,List<String> storelist)
+    {
+        int len=str.length();
+        if(len==0)
+        {
+            storelist.add(prefix);
+        }
+        else
+        {
+            for(int itr=0;itr<len;itr++)
+            {
+                permutation(prefix+str.charAt(itr),str.substring(0,itr)+str.substring(itr+1,len),storelist);
+            }
+        }
+    }
+    public static void main(String[] args) {
+		//Your Code Here
+		Scanner sc=new Scanner(System.in);
+		String s=sc.next();
+		int t=sc.nextInt();
+		List<String> storelist=new LinkedList<>();
+		permutation("",s,storelist);
+		int flag=1;
+		for(String p:storelist)
+		{
+		    int temp=Integer.parseInt(p);
+		    if(temp>t)
+		    {
+		        System.out.println(temp);
+		        flag=0;
+		        break;
+		    }
+		    
+		}
+		if(flag==1)
+		{
+		    System.out.printf("-1");
+		}
+		/*
+		another method
+		int answer=-1;
+		we need to store in a integer list
+		for(Integer p:storelist)
+		{
+		    if(p>t)
+		    {
+		        if(p<answer || answer==-1)
+		        {
+		            answer=p;
+		        }
+		    }
+		}
+		System.out.print(answer);
+		*/
+
+	}
+}
