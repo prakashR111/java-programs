@@ -1,0 +1,97 @@
+import java.util.*;
+public class Hello {
+    public static List<Integer> getRelated(int[][] matrix,int node,int n)
+    {
+        List<Integer> nodes=new ArrayList<>();
+        int noderow=node/n;
+        int nodecol=node%n;
+        for(int col=nodecol-1;col>=0;col--)
+        {
+            if(matrix[noderow][col]==1)
+            {
+                nodes.add(noderow*n+col);
+            }
+            else
+            {
+                break;
+            }
+        }
+        for(int col=nodecol+1;col<n;col++)
+        {
+            if(matrix[noderow][col]==1)
+            {
+                nodes.add(noderow*n+col);
+            }
+            else
+            {
+                break;
+            }
+        }
+        for(int row=noderow-1;row>=0;row--)
+        {
+            if(matrix[row][nodecol]==1)
+            {
+                nodes.add(row*n+nodecol);
+            }
+            else{
+                break;
+            }
+        }
+        for(int row=noderow+1;row<n;row++)
+        {
+            if(matrix[row][nodecol]==1)
+            {
+                nodes.add(row*n+nodecol);
+            }
+            else
+            {
+                break;
+            }
+        }
+        return nodes;
+    }
+
+    public static void main(String[] args) {
+		//Your Code Here
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int[][] matrix=new int[n][n];
+		for(int i=0;i<n;i++)
+		{
+		    for(int j=0;j<n;j++)
+		    {
+		        matrix[i][j]=sc.nextInt();
+		    }
+		}
+		int source=sc.nextInt()*n+sc.nextInt();
+		int destination=sc.nextInt()*n+sc.nextInt();
+		boolean[] visited=new boolean[n*n];
+		int[] div=new int[n*n];
+		Queue<Integer> q=new ArrayDeque<>();
+		q.add(source);
+		
+		visited[source]=true;
+		
+		
+        while(!q.isEmpty())
+        {
+            int node=q.poll();
+            List<Integer> related=getRelated(matrix,node,n);
+            for(Integer relnode:related)
+            {
+                if(!visited[relnode])
+                {
+                    q.add(relnode);
+                    visited[relnode]=true;
+                    div[relnode]=1+div[node];
+                    if(relnode==destination)
+                    {
+                        System.out.println(div[relnode]);
+                        return;
+                    }
+                }
+            }
+        }
+        System.out.println(div[destination]);
+	}
+}
