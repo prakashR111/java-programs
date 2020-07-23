@@ -1,0 +1,75 @@
+i/p:
+1219945
+11
+o/p:
+4
+
+explanations:
+the all substrings are given below:
+1
+12
+121
+1219
+12199
+121994
+1219945
+2
+21
+219
+2199
+21994
+219945
+1
+19
+199
+1994
+19945
+9
+99
+994
+9945
+9
+94
+945
+4
+45
+5
+
+the numbers that are divisible by 11 are
+
+121
+12199
+219945
+99
+count=4
+
+
+import java.util.*;
+public class Hello {
+
+    public static void main(String[] args) {
+		//Your Code Here
+		Scanner sc=new Scanner(System.in);
+		//Long is wrapper class not the datatype
+		Long N=sc.nextLong();
+		Long X=sc.nextLong();
+		Long currNum;
+		int count=0;
+		String num=N.toString();
+		for(int index=0;index<num.length();index++)
+		{
+		    for(int sIndex=index+1;sIndex<=num.length();sIndex++)
+		    {
+		     currNum = Long.parseLong(num.substring(index,sIndex));
+		     
+		     if(currNum % X==0)
+		     {
+		       System.out.println(currNum);  
+		         count++;
+		     }
+		    }
+		}
+		System.out.println(count);
+
+	}
+}
